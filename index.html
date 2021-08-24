@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Criptografia Cifra de César</title>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<script>
+		function criptografia(valor){
+			let resultado = '';
+			let alfabeto = [
+			' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+			'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+			];
+
+			var select = document.getElementById('opcao');
+			var valueSelect = Number(select.options[select.selectedIndex].value);
+			var dados = document.getElementById('dados').value;
+			var chave = Number(document.getElementById('chave').value);
+			
+			switch(valueSelect){
+				case 1:
+						if(!isNaN(chave) && chave <= 26){
+							for (i = 0; i < dados.length; i++){
+								for (j = 0; j < alfabeto.length; j++){
+									if (dados[i].toLowerCase() == alfabeto[j] && alfabeto[j] != ' '){
+										resultado += alfabeto[j+chave]
+										break
+									}
+									if(dados[i] == alfabeto[0]){
+										resultado += alfabeto[0];
+										break
+									}	
+								}
+							}
+
+							var element = document.getElementById('resultado');
+							element.innerHTML = 'Resultado: <b>'+resultado+'</b>'		
+						}else{
+							alert('chave inválida!')
+						}
+					break
+				case 0:
+						if(!isNaN(chave) && chave <= 26){
+							for (i = 0; i < dados.length; i++){
+								for (j = alfabeto.length; j > 0; j--){
+									if (dados[i].toLowerCase() == alfabeto[j] && alfabeto[j] != ' '){
+										resultado += alfabeto[j-chave]
+										break
+									}
+
+									if(dados[i] == alfabeto[0]){
+										resultado += alfabeto[0]
+										break
+									}
+								}
+							}
+
+							var element = document.getElementById('resultado');
+							element.innerHTML = 'Resultado: <b>'+resultado+'</b>'	
+						}else{
+							alert('chave inválida!')
+						}
+					break
+				default:
+					alert('Dados Inválidos!')
+					break
+			}
+		}
+	</script>
+
+
+	<h3>Cifra de Cesar</h3>
+	<select id="opcao" name="opcao">
+		<option value="1" default>Criptografar</option>
+		<option value="0">Descriptografar</option>
+	</select><br /><br />
+	<input placeholder="digite o texto para criptografar" id="dados" name="dados" type="text">
+	<input placeholder="digite a chave" value="0" name="chave" id="chave" type="number"><br /><br />
+	<button type="submit" name="executar" onclick="criptografia(1)">Executar</button>
+
+	<p id="resultado"></p>
+
+</body>
+</html>
